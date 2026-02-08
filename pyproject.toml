@@ -20,7 +20,8 @@ dev = [
 ]
 
 [project.scripts]
-ghidra-workflow-mcp = "ghidra_workflow_mcp.cli:main"
+ghidra-workflow-mcp = "ghidra_workflow_mcp.server:run_server"
+ghidra-workflow-mcp-admin = "ghidra_workflow_mcp.cli:main"
 
 [build-system]
 requires = ["hatchling"]

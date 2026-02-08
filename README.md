@@ -53,34 +53,28 @@ python3 -m venv .venv
 Point to a local Ghidra source tree:
 
 ```bash
-.venv/bin/ghidra-workflow-mcp build-index --ghidra-path /path/to/ghidra
+ghidra-workflow-mcp-admin build-index --ghidra-path /path/to/ghidra
 ```
 
 Or let it clone Ghidra automatically:
 
 ```bash
-.venv/bin/ghidra-workflow-mcp build-index
+ghidra-workflow-mcp-admin build-index
 ```
 
 ### 2. Test queries
 
 ```bash
-.venv/bin/ghidra-workflow-mcp inspect "decompile a function"
-.venv/bin/ghidra-workflow-mcp inspect "cross references to an address"
+ghidra-workflow-mcp-admin inspect "decompile a function"
+ghidra-workflow-mcp-admin inspect "cross references to an address"
 ```
 
-### 3. Run as MCP server
+### 3. Add as MCP server
+
+#### Claude Code
 
 ```bash
-.venv/bin/ghidra-workflow-mcp serve
-```
-
-### Claude Code
-
-Add the MCP server via the CLI:
-
-```bash
-claude mcp add ghidra-workflow /path/to/Ghidra-Document-Retrieval/.venv/bin/ghidra-workflow-mcp -- serve
+claude mcp add ghidra-workflow -- uv run --directory /path/to/Ghidra-Document-Retrieval ghidra-workflow-mcp
 ```
 
 Or create a `.mcp.json` file in the project root:
@@ -89,14 +83,14 @@ Or create a `.mcp.json` file in the project root:
 {
   "mcpServers": {
     "ghidra-workflow": {
-      "command": "/path/to/Ghidra-Document-Retrieval/.venv/bin/ghidra-workflow-mcp",
-      "args": ["serve"]
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/Ghidra-Document-Retrieval", "ghidra-workflow-mcp"]
     }
   }
 }
 ```
 
-### Claude Desktop
+#### Claude Desktop
 
 Add to `~/.config/Claude/claude_desktop_config.json` (Linux), `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS), or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
@@ -104,8 +98,21 @@ Add to `~/.config/Claude/claude_desktop_config.json` (Linux), `~/Library/Applica
 {
   "mcpServers": {
     "ghidra-workflow": {
-      "command": "/path/to/Ghidra-Document-Retrieval/.venv/bin/ghidra-workflow-mcp",
-      "args": ["serve"]
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/Ghidra-Document-Retrieval", "ghidra-workflow-mcp"]
+    }
+  }
+}
+```
+
+#### After publishing to PyPI
+
+```json
+{
+  "mcpServers": {
+    "ghidra-workflow": {
+      "command": "uvx",
+      "args": ["ghidra-workflow-mcp"]
     }
   }
 }
