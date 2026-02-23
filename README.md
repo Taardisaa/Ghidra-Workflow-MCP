@@ -49,7 +49,7 @@ Source: Ghidra/Features/Decompiler/src/test/...
 **1. Add the server to Claude Code:**
 
 ```bash
-claude mcp add ghidra-workflow -- uvx ghidra-workflow-mcp
+claude mcp add ghidra-workflow -- uvx ghidra-api-mcp
 ```
 
 Or for Claude Desktop, add to your config file (`~/.config/Claude/claude_desktop_config.json` on Linux, `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS, `%APPDATA%\Claude\claude_desktop_config.json` on Windows):
@@ -59,7 +59,7 @@ Or for Claude Desktop, add to your config file (`~/.config/Claude/claude_desktop
   "mcpServers": {
     "ghidra-workflow": {
       "command": "uvx",
-      "args": ["ghidra-workflow-mcp"]
+      "args": ["ghidra-api-mcp"]
     }
   }
 }
@@ -81,32 +81,32 @@ python3 -m venv .venv
 **Add to Claude Code:**
 
 ```bash
-claude mcp add ghidra-workflow -- uv run --directory /path/to/Ghidra-Script-Helper ghidra-workflow-mcp
+claude mcp add ghidra-workflow -- uv run --directory /path/to/Ghidra-Script-Helper ghidra-api-mcp
 ```
 
 **Or build the index offline first (CLI):**
 
 ```bash
 # Auto-clone Ghidra
-ghidra-workflow-mcp-admin build-index
+ghidra-api-mcp-admin build-index
 
 # Or point at a local Ghidra source tree
-ghidra-workflow-mcp-admin build-index --ghidra-path /path/to/ghidra
+ghidra-api-mcp-admin build-index --ghidra-path /path/to/ghidra
 ```
 
 **Inspect / test without MCP:**
 
 ```bash
-ghidra-workflow-mcp-admin inspect info                               # get_index_info
-ghidra-workflow-mcp-admin inspect workflows "decompile a function"   # get_workflows
-ghidra-workflow-mcp-admin inspect api-doc DecompInterface            # get_api_doc
-ghidra-workflow-mcp-admin inspect related DecompInterface            # list_related_apis
+ghidra-api-mcp-admin inspect info                               # get_index_info
+ghidra-api-mcp-admin inspect workflows "decompile a function"   # get_workflows
+ghidra-api-mcp-admin inspect api-doc DecompInterface            # get_api_doc
+ghidra-api-mcp-admin inspect related DecompInterface            # list_related_apis
 ```
 
 **Clear the index:**
 
 ```bash
-ghidra-workflow-mcp-admin clear-index
+ghidra-api-mcp-admin clear-index
 ```
 
 ## How It Works

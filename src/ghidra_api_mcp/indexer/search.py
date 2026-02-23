@@ -8,7 +8,7 @@ from pathlib import Path
 
 import chromadb
 
-from ghidra_workflow_mcp.indexer.store import (
+from ghidra_api_mcp.indexer.store import (
     API_CLASSES_COLLECTION,
     WORKFLOWS_COLLECTION,
     get_client,

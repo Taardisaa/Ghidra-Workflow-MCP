@@ -7,7 +7,7 @@ from pathlib import Path
 
 import chromadb
 
-from ghidra_workflow_mcp.extractor.models import Workflow
+from ghidra_api_mcp.extractor.models import Workflow
 
 logger = logging.getLogger(__name__)
 

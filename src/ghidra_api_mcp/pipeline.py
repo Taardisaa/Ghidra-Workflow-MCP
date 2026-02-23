@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Callable
 
-from ghidra_workflow_mcp.config import Config
+from ghidra_api_mcp.config import Config
 
 
 def build_index_pipeline(
@@ -23,14 +23,14 @@ def build_index_pipeline(
         max_files: Limit files processed (useful for testing).
         progress: Callable invoked with each status message.
     """
-    from ghidra_workflow_mcp.collector.ghidra_source import (
+    from ghidra_api_mcp.collector.ghidra_source import (
         build_known_class_names,
         clone_ghidra,
         detect_ghidra_version,
         enumerate_java_files,
     )
-    from ghidra_workflow_mcp.extractor.call_chain import extract_workflows_from_source
-    from ghidra_workflow_mcp.indexer.store import (
+    from ghidra_api_mcp.extractor.call_chain import extract_workflows_from_source
+    from ghidra_api_mcp.indexer.store import (
         build_api_class_index,
         build_workflow_index,
         get_client,

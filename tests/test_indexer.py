@@ -5,11 +5,11 @@ from pathlib import Path
 
 import pytest
 
-from ghidra_workflow_mcp.config import Config
-from ghidra_workflow_mcp.extractor.call_chain import extract_workflows_from_source
-from ghidra_workflow_mcp.extractor.models import SourceFile, TrustLevel
-from ghidra_workflow_mcp.indexer.search import WorkflowSearcher
-from ghidra_workflow_mcp.indexer.store import (
+from ghidra_api_mcp.config import Config
+from ghidra_api_mcp.extractor.call_chain import extract_workflows_from_source
+from ghidra_api_mcp.extractor.models import SourceFile, TrustLevel
+from ghidra_api_mcp.indexer.search import WorkflowSearcher
+from ghidra_api_mcp.indexer.store import (
     build_api_class_index,
     build_workflow_index,
     get_client,

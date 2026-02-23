@@ -6,8 +6,8 @@ import logging
 import subprocess
 from pathlib import Path
 
-from ghidra_workflow_mcp.config import Config
-from ghidra_workflow_mcp.extractor.models import SourceFile, TrustLevel
+from ghidra_api_mcp.config import Config
+from ghidra_api_mcp.extractor.models import SourceFile, TrustLevel
 
 logger = logging.getLogger(__name__)
 

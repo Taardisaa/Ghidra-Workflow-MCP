@@ -8,8 +8,8 @@ from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
 
-from ghidra_workflow_mcp.config import Config
-from ghidra_workflow_mcp.indexer.search import WorkflowSearcher
+from ghidra_api_mcp.config import Config
+from ghidra_api_mcp.indexer.search import WorkflowSearcher
 
 # All logging must go to stderr — stdout is reserved for MCP stdio transport
 logging.basicConfig(level=logging.INFO, stream=sys.stderr)
@@ -127,8 +127,8 @@ def get_index_info() -> str:
     Shows the Ghidra version the index was built from, when it was indexed,
     and how many workflows and API classes are stored.
     """
-    from ghidra_workflow_mcp.indexer.store import get_client
-    from ghidra_workflow_mcp.indexer.store import get_index_info as _get_info
+    from ghidra_api_mcp.indexer.store import get_client
+    from ghidra_api_mcp.indexer.store import get_index_info as _get_info
 
     config = Config()
     info = _get_info(get_client(config.db_path))
@@ -151,8 +151,8 @@ def clear_index() -> str:
     Removes all indexed data. You will need to run initialize_index() again
     before the query tools return results.
     """
-    from ghidra_workflow_mcp.indexer.store import clear_index as _clear
-    from ghidra_workflow_mcp.indexer.store import get_client
+    from ghidra_api_mcp.indexer.store import clear_index as _clear
+    from ghidra_api_mcp.indexer.store import get_client
 
     config = Config()
     _clear(get_client(config.db_path))
@@ -180,7 +180,7 @@ def initialize_index(ghidra_path: str = "") -> str:
     """
     from pathlib import Path
 
-    from ghidra_workflow_mcp.pipeline import build_index_pipeline
+    from ghidra_api_mcp.pipeline import build_index_pipeline
 
     messages: list[str] = []
     build_index_pipeline(

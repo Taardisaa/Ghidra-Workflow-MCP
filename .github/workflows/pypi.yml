@@ -43,7 +43,7 @@ jobs:
 
     environment:
       name: pypi
-      url: https://pypi.org/project/ghidra-workflow-mcp/${{ github.event.release.name }}
+      url: https://pypi.org/project/ghidra-api-mcp/${{ github.event.release.name }}
 
     steps:
       - name: Retrieve release distributions

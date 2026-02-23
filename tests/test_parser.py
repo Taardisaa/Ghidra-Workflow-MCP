@@ -1,6 +1,6 @@
 """Tests for the tree-sitter Java parser module."""
 
-from ghidra_workflow_mcp.parser.java_parser import (
+from ghidra_api_mcp.parser.java_parser import (
     find_imports,
     find_method_bodies,
     find_superclass,

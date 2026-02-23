@@ -42,7 +42,7 @@ def main():
 )
 def build_index(ghidra_path: Path | None, db_path: Path, max_files: int | None):
     """Build the workflow index from Ghidra source code."""
-    from ghidra_workflow_mcp.pipeline import build_index_pipeline
+    from ghidra_api_mcp.pipeline import build_index_pipeline
 
     build_index_pipeline(
         ghidra_path=ghidra_path,
@@ -62,8 +62,8 @@ def build_index(ghidra_path: Path | None, db_path: Path, max_files: int | None):
 )
 def clear_index(db_path: Path):
     """Delete the workflow index without rebuilding."""
-    from ghidra_workflow_mcp.indexer.store import clear_index as _clear
-    from ghidra_workflow_mcp.indexer.store import get_client
+    from ghidra_api_mcp.indexer.store import clear_index as _clear
+    from ghidra_api_mcp.indexer.store import get_client
 
     _clear(get_client(db_path))
     click.echo("Index cleared.")
@@ -72,7 +72,7 @@ def clear_index(db_path: Path):
 @main.command()
 def serve():
     """Start the MCP server (stdio transport)."""
-    from ghidra_workflow_mcp.server import run_server
+    from ghidra_api_mcp.server import run_server
 
     run_server()
 
@@ -95,8 +95,8 @@ def inspect():
 @_DB_PATH_OPTION
 def inspect_info(db_path: Path):
     """Show index metadata: Ghidra version, build time, counts (mirrors get_index_info)."""
-    from ghidra_workflow_mcp.indexer.store import get_client
-    from ghidra_workflow_mcp.indexer.store import get_index_info
+    from ghidra_api_mcp.indexer.store import get_client
+    from ghidra_api_mcp.indexer.store import get_index_info
 
     info = get_index_info(get_client(db_path))
 
@@ -122,7 +122,7 @@ def inspect_info(db_path: Path):
 )
 def inspect_workflows(query: str, db_path: Path, n_results: int):
     """Search for API workflows matching a task description (mirrors get_workflows)."""
-    from ghidra_workflow_mcp.indexer.search import WorkflowSearcher
+    from ghidra_api_mcp.indexer.search import WorkflowSearcher
 
     searcher = WorkflowSearcher(db_path)
     results = searcher.search_workflows(query, n_results=n_results)
@@ -153,7 +153,7 @@ def inspect_workflows(query: str, db_path: Path, n_results: int):
 )
 def inspect_api_doc(name: str, db_path: Path, n_results: int):
     """Look up a Ghidra class or method (mirrors get_api_doc)."""
-    from ghidra_workflow_mcp.indexer.search import WorkflowSearcher
+    from ghidra_api_mcp.indexer.search import WorkflowSearcher
 
     searcher = WorkflowSearcher(db_path)
     results = searcher.get_api_doc(name, n_results=n_results)
@@ -181,7 +181,7 @@ def inspect_api_doc(name: str, db_path: Path, n_results: int):
 @_DB_PATH_OPTION
 def inspect_related(name: str, db_path: Path):
     """Find APIs commonly used alongside a class (mirrors list_related_apis)."""
-    from ghidra_workflow_mcp.indexer.search import WorkflowSearcher
+    from ghidra_api_mcp.indexer.search import WorkflowSearcher
 
     searcher = WorkflowSearcher(db_path)
     result = searcher.list_related_apis(name)

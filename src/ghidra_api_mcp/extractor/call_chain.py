@@ -6,15 +6,15 @@ import logging
 import re
 from tree_sitter import Node
 
-from ghidra_workflow_mcp.config import Config
-from ghidra_workflow_mcp.extractor.models import (
+from ghidra_api_mcp.config import Config
+from ghidra_api_mcp.extractor.models import (
     ApiCall,
     DataFlowEdge,
     SourceFile,
     TrustLevel,
     Workflow,
 )
-from ghidra_workflow_mcp.parser.java_parser import (
+from ghidra_api_mcp.parser.java_parser import (
     find_imports,
     find_method_bodies,
     find_superclass,

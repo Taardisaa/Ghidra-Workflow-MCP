@@ -19,20 +19,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 .venv/bin/ruff format src/ tests/
 
 # Build the ChromaDB index (requires Ghidra source)
-ghidra-workflow-mcp-admin build-index --ghidra-path /path/to/ghidra
-ghidra-workflow-mcp-admin build-index --max-files 100  # quick test run
+ghidra-api-mcp-admin build-index --ghidra-path /path/to/ghidra
+ghidra-api-mcp-admin build-index --max-files 100  # quick test run
 
 # Query the index without MCP (mirrors MCP tools)
-ghidra-workflow-mcp-admin inspect info
-ghidra-workflow-mcp-admin inspect workflows "decompile a function"
-ghidra-workflow-mcp-admin inspect api-doc DecompInterface
-ghidra-workflow-mcp-admin inspect related DecompInterface
+ghidra-api-mcp-admin inspect info
+ghidra-api-mcp-admin inspect workflows "decompile a function"
+ghidra-api-mcp-admin inspect api-doc DecompInterface
+ghidra-api-mcp-admin inspect related DecompInterface
 
 # Clear the index
-ghidra-workflow-mcp-admin clear-index
+ghidra-api-mcp-admin clear-index
 
 # Run MCP server
-python -m ghidra_workflow_mcp
+python -m ghidra_api_mcp
 ```
 
 ## Architecture
@@ -47,7 +47,7 @@ Collect Java files  →  Parse AST (tree-sitter)  →  Extract call chains  → 
 Natural-language query  →  Semantic search ChromaDB  →  Return ranked workflow chains
 ```
 
-**Source layout**: `src/ghidra_workflow_mcp/`
+**Source layout**: `src/ghidra_api_mcp/`
 
 | Module | Role |
 |--------|------|
