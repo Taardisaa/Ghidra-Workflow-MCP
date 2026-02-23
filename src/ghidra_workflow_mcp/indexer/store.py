@@ -21,14 +21,57 @@ def get_client(db_path: Path) -> chromadb.ClientAPI:
     return chromadb.PersistentClient(path=str(db_path))
 
 
+def clear_index(client: chromadb.ClientAPI) -> None:
+    """Drop both ChromaDB collections, leaving an empty database."""
+    for name in (WORKFLOWS_COLLECTION, API_CLASSES_COLLECTION):
+        try:
+            client.delete_collection(name)
+        except Exception:
+            pass
+
+
+def get_index_info(client: chromadb.ClientAPI) -> dict:
+    """Return metadata about the current index (version, build time, counts).
+
+    Returns a dict with keys: ghidra_version, indexed_at, workflow_count,
+    api_class_count. Values are "unknown" / 0 when the index is empty.
+    """
+    info: dict = {
+        "ghidra_version": "unknown",
+        "indexed_at": "unknown",
+        "workflow_count": 0,
+        "api_class_count": 0,
+    }
+    try:
+        wf_col = client.get_collection(WORKFLOWS_COLLECTION)
+        meta = wf_col.metadata or {}
+        info["ghidra_version"] = meta.get("ghidra_version", "unknown")
+        info["indexed_at"] = meta.get("indexed_at", "unknown")
+        info["workflow_count"] = wf_col.count()
+    except Exception:
+        pass
+    try:
+        info["api_class_count"] = client.get_collection(API_CLASSES_COLLECTION).count()
+    except Exception:
+        pass
+    return info
+
+
 def build_workflow_index(
     client: chromadb.ClientAPI,
     workflows: list[Workflow],
+    ghidra_version: str = "unknown",
+    indexed_at: str = "",
 ) -> None:
     """Ingest extracted workflows into ChromaDB.
 
     Creates/replaces the workflows collection with the provided data.
     """
+    import datetime
+
+    if not indexed_at:
+        indexed_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
+
     # Delete existing collection if present
     try:
         client.delete_collection(WORKFLOWS_COLLECTION)
@@ -37,7 +80,11 @@ def build_workflow_index(
 
     collection = client.create_collection(
         name=WORKFLOWS_COLLECTION,
-        metadata={"hnsw:space": "cosine"},
+        metadata={
+            "hnsw:space": "cosine",
+            "ghidra_version": ghidra_version,
+            "indexed_at": indexed_at,
+        },
     )
 
     if not workflows:

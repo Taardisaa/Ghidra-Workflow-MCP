@@ -18,6 +18,21 @@ TRUST_MAP = {
 }
 
 
+def detect_ghidra_version(ghidra_root: Path) -> str:
+    """Read the Ghidra version from Ghidra/application.properties.
+
+    Returns the version string (e.g. "11.1.2") or "unknown" if not found.
+    """
+    props_file = ghidra_root / "Ghidra" / "application.properties"
+    try:
+        for line in props_file.read_text(encoding="utf-8").splitlines():
+            if line.startswith("application.version="):
+                return line.split("=", 1)[1].strip()
+    except Exception:
+        pass
+    return "unknown"
+
+
 def validate_ghidra_root(path: Path) -> bool:
     """Check that a path looks like a Ghidra source tree."""
     return (path / "Ghidra" / "Features").is_dir()
