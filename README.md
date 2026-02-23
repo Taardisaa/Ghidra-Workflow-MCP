@@ -1,12 +1,12 @@
-# Ghidra-Script-Helper
+# ghidra-api-mcp
 
-A MCP tool that helps LLMs write correct Ghidra scripts by providing API-callflows extracted from Ghidra's own source code.
+A MCP tool that helps LLMs write correct Ghidra scripts by providing API call-flows extracted from Ghidra's own source code.
 
 ## Problem Statement
 
 LLMs frequently get Ghidra API call sequences wrong. Decompiling a function isn't a single API call; it requires constructing a `DecompInterface`, calling `openProgram()`, obtaining a `Function`, invoking `decompileFunction()`, checking `decompileCompleted()`, and calling `dispose()`. Miss any step and the script silently fails.
 
-This tool automatically extracts these workflow patterns from Ghidra's own source code, indexes them vis `chromadb`, and serves them via MCP so any agent tools can query them.
+This tool automatically extracts these workflow patterns from Ghidra's own source code, indexes them via `chromadb`, and serves them via MCP so any agent can query them.
 
 ## MCP Tools
 
@@ -49,7 +49,7 @@ Source: Ghidra/Features/Decompiler/src/test/...
 **1. Add the server to Claude Code:**
 
 ```bash
-claude mcp add ghidra-workflow -- uvx ghidra-api-mcp
+claude mcp add ghidra-api-mcp -- uvx ghidra-api-mcp
 ```
 
 Or for Claude Desktop, add to your config file (`~/.config/Claude/claude_desktop_config.json` on Linux, `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS, `%APPDATA%\Claude\claude_desktop_config.json` on Windows):
@@ -57,7 +57,7 @@ Or for Claude Desktop, add to your config file (`~/.config/Claude/claude_desktop
 ```json
 {
   "mcpServers": {
-    "ghidra-workflow": {
+    "ghidra-api-mcp": {
       "command": "uvx",
       "args": ["ghidra-api-mcp"]
     }
@@ -72,8 +72,8 @@ Call `initialize_index` from Claude — it will clone Ghidra automatically and b
 ### From source
 
 ```bash
-git clone https://github.com/Taardisaa/Ghidra-Script-Helper.git
-cd Ghidra-Script-Helper
+git clone https://github.com/Taardisaa/ghidra-api-mcp.git
+cd ghidra-api-mcp
 python3 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
 ```
@@ -81,7 +81,7 @@ python3 -m venv .venv
 **Add to Claude Code:**
 
 ```bash
-claude mcp add ghidra-workflow -- uv run --directory /path/to/Ghidra-Script-Helper ghidra-api-mcp
+claude mcp add ghidra-api-mcp -- uv run --directory /path/to/ghidra-api-mcp ghidra-api-mcp
 ```
 
 **Or build the index offline first (CLI):**

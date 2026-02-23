@@ -208,3 +208,5 @@ __marimo__/
 
 # Project runtime data
 data/
+
+.claude/
