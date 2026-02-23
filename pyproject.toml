@@ -35,9 +35,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Taardisaa/Ghidra-Script-Helper"
-Repository = "https://github.com/Taardisaa/Ghidra-Script-Helper"
-"Bug Tracker" = "https://github.com/Taardisaa/Ghidra-Script-Helper/issues"
+Homepage = "https://github.com/Taardisaa/ghidra-api-mcp"
+Repository = "https://github.com/Taardisaa/ghidra-api-mcp"
+"Bug Tracker" = "https://github.com/Taardisaa/ghidra-api-mcp/issues"
 
 [project.scripts]
 ghidra-api-mcp = "ghidra_api_mcp.server:run_server"
